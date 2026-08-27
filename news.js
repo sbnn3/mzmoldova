@@ -10,6 +10,15 @@
     return d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
   }
 
+  function isNewItem(dateStr){
+    var itemDate = new Date(dateStr + "T00:00:00");
+    if(isNaN(itemDate.getTime())) return false;
+    var now = new Date();
+    var todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var diffDays = Math.round((todayMidnight - itemDate) / 86400000);
+    return diffDays >= 0 && diffDays < 2;
+  }
+
   function slugify(str){
     return str.toString().toLowerCase()
       .replace(/[ăâ]/g,"a").replace(/î/g,"i").replace(/ș/g,"s").replace(/ț/g,"t")
@@ -34,7 +43,7 @@
     if(!track) return;
 
     load().then(function(items){
-      renderCarousel(track, items);
+      renderCarousel(track, items.slice(0, 7));
     }).catch(function(err){
       track.innerHTML = '<div class="slide active"><div class="slide-bg poster-1"></div>' +
         '<div class="slide-body"><h3>Nu am putut încărca noutățile</h3><p>' + escapeHtml(err.message || "") + '</p></div></div>';
@@ -57,6 +66,7 @@
         '<div class="slide' + (idx===0 ? " active" : "") + (hasPhoto ? " has-photo" : "") + '" data-slug="' + item.slug + '">' +
           '<div class="slide-bg ' + (hasPhoto ? "" : (item.poster || "poster-1")) + '"' + bgStyle + '></div>' +
           '<div class="slide-icon">' + (item.icon || "⚽") + '</div>' +
+          (isNewItem(item.date) ? '<div class="slide-badge-new">NEW</div>' : '') +
           '<div class="slide-body">' +
             '<div class="slide-date">' + formatDate(item.date) + '</div>' +
             '<h3>' + escapeHtml(item.title) + '</h3>' +

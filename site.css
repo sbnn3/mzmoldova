@@ -624,6 +624,28 @@ section{
   padding:34px 40px;
   z-index:2;
 }
+.slide-badge-new{
+  position:absolute;
+  top:18px;
+  right:20px;
+  z-index:3;
+  background:linear-gradient(135deg, var(--red), #ff8a65);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.09em;
+  padding:5px 12px;
+  border-radius:999px;
+  box-shadow:0 10px 24px -8px rgba(255,107,107,0.65);
+  animation:newBadgePulse 2.2s ease-in-out infinite;
+}
+@keyframes newBadgePulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.07);}
+}
+@media (max-width:640px){
+  .slide-badge-new{top:14px;right:14px;font-size:10px;padding:4px 10px;}
+}
 .slide-date{
   font-size:11.5px;
   font-weight:700;
@@ -1001,6 +1023,22 @@ section{
 .footer-bottom .legal-links{display:flex;gap:18px;flex-wrap:wrap;}
 .footer-bottom .legal-links a{color:var(--muted-2);}
 .footer-bottom .legal-links a:hover{color:var(--gold);}
+@media (max-width:600px){
+  .footer-bottom{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:16px;
+  }
+  .footer-bottom .legal-links{
+    justify-content:center;
+    gap:10px 22px;
+  }
+  .footer-bottom > span{
+    line-height:1.6;
+    max-width:280px;
+  }
+}
 
 /* =========================================================
    Legal / simple content pages
