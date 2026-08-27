@@ -12,6 +12,7 @@
     initSiteModal();
     initLegalModals();
     initCookieBanner();
+    initTableScroll();
   });
 
   /* ---------- meniu mobil ---------- */
@@ -169,6 +170,21 @@
         var template = document.getElementById("legal-" + key);
         if(template) openSiteModal(template.innerHTML);
       });
+    });
+  }
+
+  /* ---------- tabele care se pot glisa lateral pe ecrane mici ---------- */
+  function initTableScroll(){
+    var wraps = document.querySelectorAll(".table-scroll");
+    if(!wraps.length) return;
+    wraps.forEach(function(wrap){
+      function check(){
+        var atEnd = wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 4;
+        wrap.classList.toggle("scrolled-end", atEnd || wrap.scrollWidth <= wrap.clientWidth);
+      }
+      wrap.addEventListener("scroll", check, {passive:true});
+      check();
+      window.addEventListener("resize", check);
     });
   }
 

@@ -100,6 +100,7 @@ input,textarea,select{font:inherit;color:inherit;}
   align-items:center;
   justify-content:space-between;
   gap:20px;
+  padding-left:14px;
 }
 .brand{
   display:flex;
@@ -107,18 +108,19 @@ input,textarea,select{font:inherit;color:inherit;}
   flex-shrink:0;
 }
 .brand-wordmark{
-  height:36px;
+  height:34px;
   width:auto;
   filter:drop-shadow(0 4px 14px rgba(0,0,0,0.45));
 }
 @media (max-width:900px){
-  .brand-wordmark{height:30px;}
+  .brand-wordmark{height:28px;}
 }
 @media (max-width:520px){
-  .brand-wordmark{height:22px;}
+  .site-header .container{padding-left:16px;}
+  .brand-wordmark{height:20px;}
 }
 @media (max-width:360px){
-  .brand-wordmark{height:18px;}
+  .brand-wordmark{height:17px;}
 }
 
 .nav{
@@ -489,7 +491,33 @@ section{
   border:1px solid rgba(255,255,255,0.08);
   background:rgba(255,255,255,0.03);
 }
-.leaderboard table{width:100%;border-collapse:collapse;}
+.table-scroll{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.leaderboard table{width:100%;min-width:560px;border-collapse:collapse;}
+.table-hint{display:none;}
+@media (max-width:640px){
+  .table-scroll{
+    position:relative;
+    -webkit-mask-image:linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+    mask-image:linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+  }
+  .table-scroll.scrolled-end{
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+  .leaderboard table{min-width:620px;}
+  .leaderboard th, .leaderboard td{padding:13px 14px;font-size:13.5px;}
+  .table-hint{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 20px 0;
+    font-size:11.5px;
+    color:var(--muted-2);
+  }
+}
 .leaderboard th{
   text-align:left;
   font-size:11px;
