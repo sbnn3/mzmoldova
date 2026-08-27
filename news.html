@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Noutate — ManagerZone Moldova</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="stylesheet" href="site.css">
+<style>
+  .article-hero{
+    padding:150px 0 0;
+  }
+  .article-hero .container{max-width:760px;}
+  .article-banner{
+    margin-top:34px;
+    aspect-ratio:16/7;
+    border-radius:22px;
+    position:relative;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    font-size:96px;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .article-banner img{width:100%;height:100%;object-fit:cover;}
+  .article-body{padding:44px 0 100px;}
+  .article-body .container{max-width:760px;}
+  .article-body p{
+    color:var(--muted);
+    font-size:16.5px;
+    line-height:1.9;
+    margin-bottom:22px;
+  }
+  .article-meta{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:var(--muted-2);
+    font-size:13px;
+    margin:16px 0 4px;
+  }
+  .article-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--muted-2);}
+  .article-title{font-size:clamp(26px,4.4vw,42px);font-weight:800;letter-spacing:-.01em;margin-top:14px;}
+  .article-subtitle{color:var(--muted);font-size:17px;margin-top:14px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="site-backdrop"></div>
+<div class="site-vignette"></div>
+
+<header class="site-header">
+  <div class="container">
+    <a href="landing.html#home" class="brand">
+      <img src="brand-mark.png" alt="ManagerZone Moldova">
+      <div class="brand-name">
+        <span class="mz">ManagerZone</span>
+        <span class="md">Moldova</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="landing.html#home">Home</a>
+      <a href="landing.html#noutati">Noutăți</a>
+      <a href="landing.html#statistici">Statistici</a>
+      <a href="landing.html#business">Business</a>
+      <a href="landing.html#offline-meets">Offline Meets</a>
+      <a href="landing.html#contact">Contact Us</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Meniu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="container">
+    <a href="landing.html#noutati" class="back-link">← Înapoi la noutăți</a>
+    <div class="eyebrow" id="a-eyebrow">Noutăți</div>
+    <h1 class="article-title" id="a-title">Se încarcă...</h1>
+    <p class="article-subtitle" id="a-subtitle"></p>
+    <div class="article-meta">
+      <span id="a-date"></span><span class="dot"></span><span id="a-author"></span>
+    </div>
+    <div class="article-banner" id="a-banner"></div>
+  </div>
+</section>
+
+<section class="article-body">
+  <div class="container" id="a-content"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© <span data-year></span> ManagerZone Moldova. Toate drepturile rezervate.</span>
+      <div class="legal-links">
+        <a href="terms.html">Termeni și Condiții</a>
+        <a href="cookies.html">Cookies</a>
+        <a href="privacy.html">Confidențialitate</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="news.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get("slug");
+    var elTitle = document.getElementById("a-title");
+    var elSubtitle = document.getElementById("a-subtitle");
+    var elDate = document.getElementById("a-date");
+    var elAuthor = document.getElementById("a-author");
+    var elBanner = document.getElementById("a-banner");
+    var elContent = document.getElementById("a-content");
+    var pageTitle = document.getElementById("page-title");
+
+    MZNews.load().then(function(items){
+      var item = items.find(function(i){ return i.slug === slug; });
+      if(!item){
+        elTitle.textContent = "Noutatea nu a fost găsită";
+        elSubtitle.textContent = "S-ar putea să fi fost mutată sau ștearsă.";
+        elBanner.remove();
+        return;
+      }
+      pageTitle.textContent = item.title + " — ManagerZone Moldova";
+      elTitle.textContent = item.title;
+      elSubtitle.textContent = item.subtitle || "";
+      elDate.textContent = MZNews.formatDate(item.date);
+      elAuthor.textContent = item.author || "Echipa MZ Moldova";
+      if(item.image){
+        elBanner.className = "article-banner";
+        elBanner.innerHTML = '<img src="' + item.image + '" alt="' + item.title.replace(/"/g,"&quot;") + '">';
+      } else {
+        elBanner.className = "article-banner " + (item.poster || "poster-1");
+        elBanner.textContent = item.icon || "⚽";
+      }
+      elContent.innerHTML = (item.content || []).map(function(p){
+        return "<p>" + p.replace(/&/g,"&amp;").replace(/</g,"&lt;") + "</p>";
+      }).join("");
+    }).catch(function(){
+      elTitle.textContent = "Nu am putut încărca noutatea";
+      elSubtitle.textContent = "Încearcă să reîncarci pagina.";
+    });
+  });
+</script>
+</body>
+</html>

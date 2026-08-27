@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ManagerZone Moldova</title>
+<meta name="description" content="Comunitatea moldovenească ManagerZone — noutăți, statistici, transferuri și întâlniri offline.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div class="site-backdrop"></div>
+<div class="site-vignette"></div>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="container">
+    <a href="#home" class="brand">
+      <img src="brand-mark.png" alt="ManagerZone Moldova">
+      <div class="brand-name">
+        <span class="mz">ManagerZone</span>
+        <span class="md">Moldova</span>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="#home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+        Home
+      </a>
+      <a href="#noutati">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="14" rx="1.5"/><path d="M7 9h6M7 12.5h6M7 16h3"/><path d="M17 8h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9"/></svg>
+        Noutăți
+      </a>
+      <a href="#statistici">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V11"/><path d="M12 20V6"/><path d="M19 20v-8"/><path d="M3 20h18"/></svg>
+        Statistici
+      </a>
+      <a href="#business">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
+        Business
+      </a>
+      <a href="#offline-meets">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        Offline Meets
+      </a>
+      <a href="#contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+        Contact Us
+      </a>
+    </nav>
+
+    <button class="nav-toggle" aria-label="Meniu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO / HOME ================= -->
+<section id="home" class="hero">
+  <div class="container">
+    <img src="logo.png" alt="ManagerZone Moldova" class="hero-logo reveal-scale">
+    <h1 class="reveal" style="--delay:.1s">Comunitatea moldovenească de <span>ManagerZone</span></h1>
+    <p class="lead reveal" style="--delay:.2s">
+      Echipe, clasamente, transferuri și povești din campionatul virtual moldovenesc —
+      tot ce ține de noi ca grupare, într-un singur loc.
+    </p>
+    <div class="hero-cta reveal" style="--delay:.3s">
+      <a href="#noutati" class="btn btn-primary">Vezi ultimele noutăți</a>
+      <a href="#contact" class="btn btn-ghost">Ia legătura cu noi</a>
+    </div>
+    <div class="hero-stats reveal" style="--delay:.4s">
+      <div><b>2019</b><span>An înființare</span></div>
+      <div><b>40+</b><span>Manageri activi</span></div>
+      <div><b>3</b><span>Întâlniri offline</span></div>
+      <div><b>1</b><span>Comunitate mare</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NOUTĂȚI / BLOG ================= -->
+<section id="noutati">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Noutăți</div>
+      <h2>Ultimele <em>noutăți</em> din comunitate</h2>
+      <p>Ce mai e nou în liga moldovenească — sezoane, transferuri și evenimente.</p>
+    </div>
+
+    <div class="carousel reveal-scale" data-carousel data-interval="6000" id="news-carousel">
+      <div class="carousel-track" id="news-track">
+        <!-- slides injected by news.js -->
+      </div>
+      <button class="carousel-arrow prev" aria-label="Noutatea anterioară">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="carousel-arrow next" aria-label="Noutatea următoare">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <div class="carousel-dots"></div>
+    </div>
+
+    <div class="news-more reveal">
+      <a href="admin.html" class="btn btn-ghost">Adaugă o noutate</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATISTICI ================= -->
+<section id="statistici">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Statistici</div>
+      <h2>Cele mai bune <em>rezultate</em> din liga noastră</h2>
+      <p>Trofeele câștigate de manageri și cei mai în formă jucători moldoveni.</p>
+      <span class="notice-tag">📊 Date exemplu — actualizate periodic de echipă</span>
+    </div>
+
+    <div class="grid-3 reveal">
+      <div class="panel-card trophy-card">
+        <div class="medal">🥇</div>
+        <h4>IonManager</h4>
+        <div class="role">FC Chișinău Virtual</div>
+        <div class="trophy-count">
+          <div><b>4</b><span>Titluri Ligă</span></div>
+          <div><b>2</b><span>Cupe Naț.</span></div>
+          <div><b>1</b><span>Cupe Int.</span></div>
+        </div>
+      </div>
+      <div class="panel-card trophy-card">
+        <div class="medal">🥈</div>
+        <h4>VictorZ</h4>
+        <div class="role">Bălți United MZ</div>
+        <div class="trophy-count">
+          <div><b>3</b><span>Titluri Ligă</span></div>
+          <div><b>1</b><span>Cupe Naț.</span></div>
+          <div><b>0</b><span>Cupe Int.</span></div>
+        </div>
+      </div>
+      <div class="panel-card trophy-card">
+        <div class="medal">🥉</div>
+        <h4>CristiTactician</h4>
+        <div class="role">Orhei Legends</div>
+        <div class="trophy-count">
+          <div><b>2</b><span>Titluri Ligă</span></div>
+          <div><b>3</b><span>Cupe Naț.</span></div>
+          <div><b>0</b><span>Cupe Int.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:28px"></div>
+
+    <div class="leaderboard reveal">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Jucător</th><th>Poziție</th><th>Echipă</th><th>Goluri</th><th>Assist-uri</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge gold">1</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#ffdb7a,#e0a52c)">AD</div>Andrei D.</div></td>
+            <td>Atacant</td>
+            <td>FC Chișinău Virtual</td>
+            <td>28</td>
+            <td>9</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge silver">2</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#e7ecf5,#aab4c6)">MR</div>Mihai R.</div></td>
+            <td>Mijlocaș</td>
+            <td>Bălți United MZ</td>
+            <td>19</td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge bronze">3</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#e2a56a,#a85f2b)">VT</div>Vasile T.</div></td>
+            <td>Fundaș</td>
+            <td>Orhei Legends</td>
+            <td>6</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge">4</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#4f8cff,#2a56b8)">SP</div>Sergiu P.</div></td>
+            <td>Atacant</td>
+            <td>Cahul FC Online</td>
+            <td>17</td>
+            <td>6</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-note">Statistici exemplu pentru sezonul curent — le actualizăm pe măsură ce avansează campionatul.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUSINESS ================= -->
+<section id="business">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Business</div>
+      <h2>Cele mai <em>scumpe</em> transferuri</h2>
+      <p>Top prețuri cu care s-au vândut jucători moldoveni pe piața de transferuri.</p>
+      <span class="notice-tag">💼 Date exemplu — actualizate periodic de echipă</span>
+    </div>
+
+    <div class="leaderboard reveal">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Jucător</th><th>De la</th><th>La</th><th>Preț</th><th>Data</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge gold">1</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#ffdb7a,#e0a52c)">DB</div>Dan B.</div></td>
+            <td>FC Chișinău Virtual</td>
+            <td>Real Online Madrid</td>
+            <td class="price-tag">28.4M</td>
+            <td>iul. 2026</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge silver">2</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#e7ecf5,#aab4c6)">RC</div>Radu C.</div></td>
+            <td>Bălți United MZ</td>
+            <td>Virtual Milan</td>
+            <td class="price-tag">21.9M</td>
+            <td>iun. 2026</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge bronze">3</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#e2a56a,#a85f2b)">TL</div>Tudor L.</div></td>
+            <td>Orhei Legends</td>
+            <td>FC Chișinău Virtual</td>
+            <td class="price-tag">17.2M</td>
+            <td>mai 2026</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge">4</span></td>
+            <td><div class="player-cell"><div class="player-avatar" style="background:linear-gradient(135deg,#4f8cff,#2a56b8)">GN</div>Gheorghe N.</div></td>
+            <td>Cahul FC Online</td>
+            <td>Bălți United MZ</td>
+            <td class="price-tag">12.6M</td>
+            <td>mai 2026</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-note">Sume exprimate în moneda internă a jocului. Actualizăm topul pe măsură ce apar transferuri noi.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFFLINE MEETS ================= -->
+<section id="offline-meets">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Offline Meets</div>
+      <h2>Ne-am <em>întâlnit</em> și în afara jocului</h2>
+      <p>Momente de la întâlnirile comunității — apasă pe o poză pentru detalii.</p>
+      <span class="notice-tag">📸 Poze exemplu — le înlocuim cu cele reale</span>
+    </div>
+
+    <div class="gallery reveal">
+      <div class="gallery-item" data-title="Prima întâlnire — Chișinău" data-desc="August 2026 · O seară cu povești despre transferuri ratate și victorii din ultimul minut.">
+        <div class="tile poster-1">🤝</div>
+        <div class="cap">Chișinău, 2026</div>
+      </div>
+      <div class="gallery-item" data-title="Vizionare meci în grup" data-desc="Iulie 2026 · Ne-am strâns la o terasă să urmărim un meci din campionat.">
+        <div class="tile poster-2">📺</div>
+        <div class="cap">Vizionare meci</div>
+      </div>
+      <div class="gallery-item" data-title="Turneu amical FIFA" data-desc="Iunie 2026 · Un mic turneu între manageri, cu premii simbolice.">
+        <div class="tile poster-3">🎮</div>
+        <div class="cap">Turneu amical</div>
+      </div>
+      <div class="gallery-item" data-title="Grătar de vară" data-desc="Mai 2026 · Prima ieșire relaxată a grupului, în aer liber.">
+        <div class="tile poster-4">🔥</div>
+        <div class="cap">Grătar de vară</div>
+      </div>
+      <div class="gallery-item" data-title="Sesiune de tactici" data-desc="Aprilie 2026 · Am discutat față în față despre strategii de joc.">
+        <div class="tile poster-5">📋</div>
+        <div class="cap">Sesiune tactici</div>
+      </div>
+      <div class="gallery-item" data-title="Premiere sezon" data-desc="Martie 2026 · Am premiat cele mai bune echipe ale sezonului trecut.">
+        <div class="tile poster-6">🏆</div>
+        <div class="cap">Premiere sezon</div>
+      </div>
+      <div class="gallery-item" data-title="Cină de Crăciun" data-desc="Decembrie 2025 · Ultima întâlnire din an, într-o atmosferă de sărbătoare.">
+        <div class="tile poster-1">🎄</div>
+        <div class="cap">Cină de Crăciun</div>
+      </div>
+      <div class="gallery-item" data-title="Prima cunoștință" data-desc="Noiembrie 2025 · Așa a început totul — câțiva pasionați la o cafea.">
+        <div class="tile poster-3">☕</div>
+        <div class="cap">Prima cunoștință</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- lightbox -->
+<div class="lightbox" data-lightbox>
+  <div class="lightbox-box">
+    <button class="lightbox-close" aria-label="Închide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="lightbox-visual"></div>
+    <div class="lightbox-info">
+      <h4></h4>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Contact</div>
+      <h2>Hai să <em>vorbim</em></h2>
+      <p>Întrebări, sugestii sau vrei să te alături comunității? Scrie-ne.</p>
+    </div>
+
+    <div class="contact-grid">
+      <form class="panel-card reveal" data-contact-form>
+        <div class="field">
+          <label for="c-name">Nume</label>
+          <input id="c-name" name="name" type="text" placeholder="Numele tău" required>
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input id="c-email" name="email" type="email" placeholder="adresa@exemplu.com" required>
+        </div>
+        <div class="field">
+          <label for="c-message">Mesaj</label>
+          <textarea id="c-message" name="message" placeholder="Scrie-ne aici..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Trimite mesajul</button>
+      </form>
+
+      <div class="reveal" style="--delay:.15s">
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+            </div>
+            <div>
+              <b>Email</b>
+              <span>mzmoldova@outlook.com</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            </div>
+            <div>
+              <b>Locație</b>
+              <span>Republica Moldova</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            </div>
+            <div>
+              <b>Timp de răspuns</b>
+              <span>De obicei în 24–48h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="brand-mark.png" alt="ManagerZone Moldova">
+          <span>ManagerZone Moldova</span>
+        </div>
+        <p>Comunitatea moldovenească a jucătorilor ManagerZone — echipe, clasamente, ligi și povești din campionatul virtual moldovenesc.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigare</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#noutati">Noutăți</a></li>
+          <li><a href="#statistici">Statistici</a></li>
+          <li><a href="#business">Business</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Comunitate</h5>
+        <ul>
+          <li><a href="#offline-meets">Offline Meets</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="admin.html">Adaugă o noutate</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="terms.html">Termeni și Condiții</a></li>
+          <li><a href="cookies.html">Politica de Cookies</a></li>
+          <li><a href="privacy.html">Confidențialitate</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year></span> ManagerZone Moldova. Toate drepturile rezervate.</span>
+      <div class="legal-links">
+        <a href="terms.html">Termeni și Condiții</a>
+        <a href="cookies.html">Cookies</a>
+        <a href="privacy.html">Confidențialitate</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="news.js"></script>
+</body>
+</html>
