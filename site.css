@@ -104,25 +104,21 @@ input,textarea,select{font:inherit;color:inherit;}
 .brand{
   display:flex;
   align-items:center;
-  gap:12px;
   flex-shrink:0;
 }
-.brand img{
-  height:42px;
+.brand-wordmark{
+  height:36px;
   width:auto;
   filter:drop-shadow(0 4px 14px rgba(0,0,0,0.45));
 }
-.brand-name{
-  line-height:1;
+@media (max-width:900px){
+  .brand-wordmark{height:30px;}
 }
-.brand-name .mz{
-  font-size:17px;
-  font-weight:800;
-  letter-spacing:.01em;
-  color:var(--text);
+@media (max-width:520px){
+  .brand-wordmark{height:22px;}
 }
-.brand-name .mz .accent{
-  color:var(--gold);
+@media (max-width:360px){
+  .brand-wordmark{height:18px;}
 }
 
 .nav{
