@@ -1,4 +1,4 @@
-/* ManagerZone Moldova — news data loading + carousel rendering */
+/* MZ Moldova, încărcarea noutăților și randarea carousel-ului */
 (function(){
   "use strict";
 
@@ -17,13 +17,8 @@
       .replace(/(^-|-$)/g,"");
   }
 
-  function dataUrl(){
-    // works whether the page lives at the site root or one level deep
-    return "news.json";
-  }
-
   function load(){
-    return fetch(dataUrl(), {cache:"no-store"}).then(function(res){
+    return fetch("news.json", {cache:"no-store"}).then(function(res){
       if(!res.ok) throw new Error("Nu am putut încărca noutățile.");
       return res.json();
     }).then(function(items){
@@ -33,7 +28,7 @@
 
   window.MZNews = {formatDate:formatDate, slugify:slugify, load:load};
 
-  /* ---------- build the homepage carousel, if present ---------- */
+  /* ---------- construiește carousel-ul de pe pagina principală, dacă există ---------- */
   document.addEventListener("DOMContentLoaded", function(){
     var track = document.getElementById("news-track");
     if(!track) return;
@@ -42,7 +37,7 @@
       renderCarousel(track, items);
     }).catch(function(err){
       track.innerHTML = '<div class="slide active"><div class="slide-bg poster-1"></div>' +
-        '<div class="slide-body"><h3>Nu am putut încărca noutățile</h3><p>' + (err.message || "") + '</p></div></div>';
+        '<div class="slide-body"><h3>Nu am putut încărca noutățile</h3><p>' + escapeHtml(err.message || "") + '</p></div></div>';
     });
   });
 
@@ -51,7 +46,7 @@
     var dotsWrap = root.querySelector(".carousel-dots");
     if(!items.length){
       track.innerHTML = '<div class="slide active"><div class="slide-bg poster-1"></div>' +
-        '<div class="slide-body"><h3>Nicio noutate momentan</h3><p>Reveniți curând.</p></div></div>';
+        '<div class="slide-body"><h3>Nicio noutate momentan</h3><p>Revino curând.</p></div></div>';
       return;
     }
 
@@ -74,7 +69,8 @@
     var slides = Array.prototype.slice.call(track.querySelectorAll(".slide"));
     slides.forEach(function(slide){
       slide.addEventListener("click", function(){
-        window.location.href = "news.html?slug=" + encodeURIComponent(slide.getAttribute("data-slug"));
+        var item = items.filter(function(i){ return i.slug === slide.getAttribute("data-slug"); })[0];
+        if(item) openArticleModal(item);
       });
     });
 
@@ -88,7 +84,7 @@
     var dots = Array.prototype.slice.call(dotsWrap.children);
 
     var i = 0, timer = null;
-    var interval = parseInt(root.getAttribute("data-interval") || "6000", 10);
+    var interval = parseInt(root.getAttribute("data-interval") || "3200", 10);
 
     function go(n){
       slides[i].classList.remove("active");
@@ -102,7 +98,7 @@
     function reset(){ if(timer) clearInterval(timer); timer = setInterval(next, interval); }
 
     dots.forEach(function(d, idx){
-      d.addEventListener("click", function(){ go(idx); reset(); });
+      d.addEventListener("click", function(e){ e.stopPropagation(); go(idx); reset(); });
     });
     var nextBtn = root.querySelector(".carousel-arrow.next");
     var prevBtn = root.querySelector(".carousel-arrow.prev");
@@ -114,6 +110,30 @@
 
     go(0);
     reset();
+  }
+
+  /* ---------- deschide noutatea întreagă în modal, fără să schimbe pagina ---------- */
+  function openArticleModal(item){
+    if(!window.MZModal) return;
+    var hasPhoto = !!item.image;
+    var bannerInner = hasPhoto
+      ? '<img src="' + item.image + '" alt="' + escapeHtml(item.title) + '">'
+      : escapeHtml(item.icon || "⚽");
+    var bannerClass = "site-modal-banner" + (hasPhoto ? "" : (" " + (item.poster || "poster-1")));
+
+    var html =
+      '<div class="' + bannerClass + '">' + bannerInner + '</div>' +
+      '<div class="site-modal-body">' +
+        '<div class="eyebrow">Noutăți</div>' +
+        '<h3 class="site-modal-title">' + escapeHtml(item.title) + '</h3>' +
+        '<p class="site-modal-subtitle">' + escapeHtml(item.subtitle || "") + '</p>' +
+        '<div class="site-modal-meta"><span>' + formatDate(item.date) + '</span><span class="dot"></span><span>' + escapeHtml(item.author || "Echipa MZ Moldova") + '</span></div>' +
+        '<div class="prose" style="margin-top:22px;">' +
+          (item.content || []).map(function(p){ return "<p>" + escapeHtml(p) + "</p>"; }).join("") +
+        '</div>' +
+      '</div>';
+
+    window.MZModal.open(html);
   }
 
   function escapeHtml(s){

@@ -1,4 +1,4 @@
-/* ManagerZone Moldova — shared site behaviour */
+/* MZ Moldova, comportament comun al site-ului */
 (function(){
   "use strict";
 
@@ -7,12 +7,14 @@
     initActiveNav();
     initReveal();
     initYear();
-    initCarousels();
     initLightbox();
     initContactForm();
+    initSiteModal();
+    initLegalModals();
+    initCookieBanner();
   });
 
-  /* ---------- mobile nav ---------- */
+  /* ---------- meniu mobil ---------- */
   function initNavToggle(){
     var toggle = document.querySelector(".nav-toggle");
     var nav = document.querySelector(".nav");
@@ -25,7 +27,7 @@
     });
   }
 
-  /* ---------- highlight nav link matching scroll position ---------- */
+  /* ---------- evidențiază linkul din meniu în funcție de scroll ---------- */
   function initActiveNav(){
     var links = Array.prototype.slice.call(document.querySelectorAll(".nav a[href^='#']"));
     if(!links.length) return;
@@ -47,7 +49,7 @@
     onScroll();
   }
 
-  /* ---------- scroll reveal ---------- */
+  /* ---------- apariție treptată la scroll ---------- */
   function initReveal(){
     var items = document.querySelectorAll(".reveal, .reveal-scale");
     if(!items.length) return;
@@ -72,57 +74,7 @@
     });
   }
 
-  /* ---------- carousel ---------- */
-  function initCarousels(){
-    document.querySelectorAll("[data-carousel]").forEach(function(root){
-      var track = root.querySelector(".carousel-track");
-      var slides = Array.prototype.slice.call(root.querySelectorAll(".slide"));
-      var dotsWrap = root.querySelector(".carousel-dots");
-      if(!slides.length) return;
-      var i = 0;
-      var timer = null;
-      var interval = parseInt(root.getAttribute("data-interval") || "5500", 10);
-
-      if(dotsWrap){
-        dotsWrap.innerHTML = "";
-        slides.forEach(function(_, idx){
-          var b = document.createElement("button");
-          b.type = "button";
-          b.setAttribute("aria-label", "Slide " + (idx+1));
-          b.addEventListener("click", function(){ go(idx); reset(); });
-          dotsWrap.appendChild(b);
-        });
-      }
-      var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.children) : [];
-
-      function go(n){
-        slides[i].classList.remove("active");
-        if(dots[i]) dots[i].classList.remove("active");
-        i = (n + slides.length) % slides.length;
-        slides[i].classList.add("active");
-        if(dots[i]) dots[i].classList.add("active");
-      }
-      function next(){ go(i+1); }
-      function prev(){ go(i-1); }
-      function reset(){
-        if(timer) clearInterval(timer);
-        timer = setInterval(next, interval);
-      }
-
-      var nextBtn = root.querySelector(".carousel-arrow.next");
-      var prevBtn = root.querySelector(".carousel-arrow.prev");
-      if(nextBtn) nextBtn.addEventListener("click", function(e){ e.stopPropagation(); next(); reset(); });
-      if(prevBtn) prevBtn.addEventListener("click", function(e){ e.stopPropagation(); prev(); reset(); });
-
-      root.addEventListener("mouseenter", function(){ if(timer) clearInterval(timer); });
-      root.addEventListener("mouseleave", reset);
-
-      go(0);
-      reset();
-    });
-  }
-
-  /* ---------- lightbox (offline meets gallery) ---------- */
+  /* ---------- lightbox pentru galeria Offline Meets ---------- */
   function initLightbox(){
     var lightbox = document.querySelector("[data-lightbox]");
     if(!lightbox) return;
@@ -156,7 +108,7 @@
     });
   }
 
-  /* ---------- contact form -> mailto ---------- */
+  /* ---------- formular de contact, trimite prin email ---------- */
   function initContactForm(){
     var form = document.querySelector("[data-contact-form]");
     if(!form) return;
@@ -165,9 +117,88 @@
       var name = form.querySelector("[name=name]").value.trim();
       var email = form.querySelector("[name=email]").value.trim();
       var message = form.querySelector("[name=message]").value.trim();
-      var subject = encodeURIComponent("Mesaj de la " + (name || "vizitator") + " — MZ Moldova");
-      var body = encodeURIComponent(message + "\n\n— " + name + " (" + email + ")");
+      var subject = encodeURIComponent("Mesaj de la " + (name || "vizitator") + " prin site MZ Moldova");
+      var body = encodeURIComponent(message + "\n\nTrimis de " + name + " (" + email + ")");
       window.location.href = "mailto:mzmoldova@outlook.com?subject=" + subject + "&body=" + body;
+    });
+  }
+
+  /* ---------- modalul general (noutate întreagă, termeni, cookies, confidențialitate) ---------- */
+  var siteModalEl, siteModalBody;
+
+  function initSiteModal(){
+    siteModalEl = document.querySelector("[data-site-modal]");
+    if(!siteModalEl) return;
+    siteModalBody = siteModalEl.querySelector("[data-site-modal-body]");
+    var closeBtn = siteModalEl.querySelector("[data-site-modal-close]");
+
+    if(closeBtn) closeBtn.addEventListener("click", closeSiteModal);
+    siteModalEl.addEventListener("click", function(e){
+      if(e.target === siteModalEl) closeSiteModal();
+    });
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape") closeSiteModal();
+    });
+  }
+
+  function openSiteModal(html){
+    if(!siteModalEl) return;
+    siteModalBody.innerHTML = html;
+    siteModalEl.classList.add("open");
+    siteModalEl.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeSiteModal(){
+    if(!siteModalEl) return;
+    siteModalEl.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  /* expus global, ca news.js să poată deschide modalul pentru o noutate */
+  window.MZModal = {open: openSiteModal, close: closeSiteModal};
+
+  /* ---------- linkurile din footer (Termeni, Cookies, Confidențialitate) deschid modalul ---------- */
+  function initLegalModals(){
+    var triggers = document.querySelectorAll("[data-legal]");
+    if(!triggers.length) return;
+    triggers.forEach(function(trigger){
+      trigger.addEventListener("click", function(e){
+        e.preventDefault();
+        var key = trigger.getAttribute("data-legal");
+        var template = document.getElementById("legal-" + key);
+        if(template) openSiteModal(template.innerHTML);
+      });
+    });
+  }
+
+  /* ---------- banner de cookie-uri ---------- */
+  function getCookie(name){
+    var match = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+  function setCookie(name, value){
+    var oneYear = 60 * 60 * 24 * 365;
+    document.cookie = name + "=" + encodeURIComponent(value) + "; max-age=" + oneYear + "; path=/; SameSite=Lax";
+  }
+
+  function initCookieBanner(){
+    var banner = document.querySelector("[data-cookie-banner]");
+    if(!banner) return;
+    var acceptBtn = banner.querySelector("[data-cookie-accept]");
+    var declineBtn = banner.querySelector("[data-cookie-decline]");
+
+    if(!getCookie("mz_consent")){
+      setTimeout(function(){ banner.classList.add("show"); }, 900);
+    }
+
+    if(acceptBtn) acceptBtn.addEventListener("click", function(){
+      setCookie("mz_consent", "acceptat");
+      banner.classList.remove("show");
+    });
+    if(declineBtn) declineBtn.addEventListener("click", function(){
+      setCookie("mz_consent", "doar-esentiale");
+      banner.classList.remove("show");
     });
   }
 })();

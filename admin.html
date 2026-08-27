@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Adaugă o noutate — ManagerZone Moldova</title>
+<title>Adaugă o noutate · MZ Moldova</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="site.css">
 <style>
@@ -60,10 +60,9 @@
 <header class="site-header">
   <div class="container">
     <a href="landing.html#home" class="brand">
-      <img src="brand-mark.png" alt="ManagerZone Moldova">
+      <img src="brand-mark.png" alt="MZ Moldova">
       <div class="brand-name">
-        <span class="mz">ManagerZone</span>
-        <span class="md">Moldova</span>
+        <span class="mz"><span class="accent">MZ</span> Moldova</span>
       </div>
     </a>
     <nav class="nav">
@@ -82,68 +81,83 @@
 
 <section class="admin-wrap">
   <div class="container">
-    <div class="admin-head">
-      <div class="eyebrow">Panou intern</div>
-      <h1>Adaugă o noutate</h1>
-      <p>Formularul de mai jos publică direct pe site: creează un link nou pentru noutate și un slide nou în secțiunea Noutăți de pe pagina principală.</p>
+
+    <div class="gate-screen" id="gate-screen">
+      <div class="lock">🔒</div>
+      <h1>Acces restricționat</h1>
+      <p>Pagina asta e doar pentru echipa care publică noutăți pe site. Dacă ai motiv să fii aici, știi parola.</p>
+      <form id="gate-form">
+        <input type="password" id="gate-pass" placeholder="Parolă de acces" autocomplete="off" required>
+        <button type="submit" class="btn btn-primary">Intră</button>
+      </form>
+      <div class="gate-error" id="gate-error">Parolă greșită. Mai încearcă o dată.</div>
     </div>
 
-    <div class="token-card">
-      <h3>🔑 Token GitHub (o singură dată)</h3>
-      <p>
-        Ca să poată publica direct pe site, pagina are nevoie de un token personal de GitHub cu acces de scriere
-        <b>doar</b> la repo-ul <code>sbnn3/mzmoldova</code>. Token-ul rămâne salvat doar în browserul tău (nu e trimis nicăieri altundeva
-        decât direct către GitHub) — îl generezi din
-        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Settings → Developer settings → Fine-grained tokens</a>,
-        cu acces limitat la repo-ul <code>mzmoldova</code> și permisiunea <b>Contents: Read and write</b>.
-      </p>
-      <div class="token-row">
-        <input type="password" id="gh-token" placeholder="github_pat_..." autocomplete="off">
-        <button class="btn btn-ghost" id="save-token">Salvează</button>
-        <button class="btn btn-ghost" id="clear-token">Șterge</button>
+    <div id="admin-content" style="display:none;">
+      <div class="admin-head">
+        <div class="eyebrow">Panou intern</div>
+        <h1>Adaugă o noutate</h1>
+        <p>Formularul de mai jos publică direct pe site: creează un link nou pentru noutate și un slide nou în secțiunea Noutăți de pe pagina principală.</p>
       </div>
-      <div class="token-status" id="token-status">Niciun token salvat momentan pe acest dispozitiv.</div>
+
+      <div class="token-card">
+        <h3>🔑 Token GitHub (o singură dată)</h3>
+        <p>
+          Ca să poată publica direct pe site, pagina are nevoie de un token personal de GitHub cu acces de scriere
+          <b>doar</b> la repo-ul <code>sbnn3/mzmoldova</code>. Token-ul rămâne salvat doar în browserul tău, nu e trimis nicăieri altundeva
+          decât direct către GitHub. Îl generezi din
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Settings → Developer settings → Fine-grained tokens</a>,
+          cu acces limitat la repo-ul <code>mzmoldova</code> și permisiunea <b>Contents: Read and write</b>.
+        </p>
+        <div class="token-row">
+          <input type="password" id="gh-token" placeholder="github_pat_..." autocomplete="off">
+          <button class="btn btn-ghost" id="save-token">Salvează</button>
+          <button class="btn btn-ghost" id="clear-token">Șterge</button>
+        </div>
+        <div class="token-status" id="token-status">Niciun token salvat momentan pe acest dispozitiv.</div>
+      </div>
+
+      <form class="panel-card form-card" id="news-form">
+        <div class="field">
+          <label for="f-title">Titlu</label>
+          <input id="f-title" name="title" type="text" placeholder="Titlul noutății" required>
+        </div>
+        <div class="field">
+          <label for="f-subtitle">Subtitlu</label>
+          <input id="f-subtitle" name="subtitle" type="text" placeholder="O propoziție scurtă, apare sub titlu" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-date">Data</label>
+            <input id="f-date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="f-author">Autor</label>
+            <input id="f-author" name="author" type="text" placeholder="Echipa MZ Moldova" value="Echipa MZ Moldova">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-content">Conținut</label>
+          <textarea id="f-content" name="content" rows="8" placeholder="Scrie conținutul noutății. Lasă un rând gol între paragrafe." required></textarea>
+          <small>Fiecare paragraf separat printr-un rând gol devine un paragraf separat pe pagina noutății.</small>
+        </div>
+        <div class="field">
+          <label for="f-image">Imagine (opțional)</label>
+          <input id="f-image" name="image" type="file" accept="image/*">
+          <small>Dacă nu alegi o imagine, slide-ul va folosi un fundal generic din tema site-ului.</small>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            <span class="spinner"></span>
+            <span class="btn-label">Publică noutatea</span>
+          </button>
+        </div>
+
+        <div class="result-box" id="result-box"></div>
+      </form>
     </div>
 
-    <form class="panel-card form-card" id="news-form">
-      <div class="field">
-        <label for="f-title">Titlu</label>
-        <input id="f-title" name="title" type="text" placeholder="Titlul noutății" required>
-      </div>
-      <div class="field">
-        <label for="f-subtitle">Subtitlu</label>
-        <input id="f-subtitle" name="subtitle" type="text" placeholder="O propoziție scurtă, apare sub titlu" required>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label for="f-date">Data</label>
-          <input id="f-date" name="date" type="date" required>
-        </div>
-        <div class="field">
-          <label for="f-author">Autor</label>
-          <input id="f-author" name="author" type="text" placeholder="Echipa MZ Moldova" value="Echipa MZ Moldova">
-        </div>
-      </div>
-      <div class="field">
-        <label for="f-content">Conținut</label>
-        <textarea id="f-content" name="content" rows="8" placeholder="Scrie conținutul noutății. Lasă un rând gol între paragrafe." required></textarea>
-        <small>Fiecare paragraf separat printr-un rând gol devine un paragraf separat pe pagina noutății.</small>
-      </div>
-      <div class="field">
-        <label for="f-image">Imagine (opțional)</label>
-        <input id="f-image" name="image" type="file" accept="image/*">
-        <small>Dacă nu alegi o imagine, slide-ul va folosi un fundal generic din tema site-ului.</small>
-      </div>
-
-      <div class="submit-row">
-        <button type="submit" class="btn btn-primary" id="submit-btn">
-          <span class="spinner"></span>
-          <span class="btn-label">Publică noutatea</span>
-        </button>
-      </div>
-
-      <div class="result-box" id="result-box"></div>
-    </form>
   </div>
 </section>
 
@@ -165,6 +179,44 @@
 <script>
 (function(){
   "use strict";
+  var GATE_HASH = "a15ee18e75958459617f86bb8dc30e897fa4a4bd80fa30d656f355e89bfcc6bb";
+  var gateScreen = document.getElementById("gate-screen");
+  var adminContent = document.getElementById("admin-content");
+  var gateForm = document.getElementById("gate-form");
+  var gatePass = document.getElementById("gate-pass");
+  var gateError = document.getElementById("gate-error");
+
+  function unlock(){
+    gateScreen.style.display = "none";
+    adminContent.style.display = "block";
+  }
+
+  async function sha256Hex(text){
+    var data = new TextEncoder().encode(text);
+    var buf = await crypto.subtle.digest("SHA-256", data);
+    return Array.prototype.map.call(new Uint8Array(buf), function(b){
+      return b.toString(16).padStart(2, "0");
+    }).join("");
+  }
+
+  if(localStorage.getItem("mz_admin_unlocked") === "1"){
+    unlock();
+  }
+
+  gateForm.addEventListener("submit", async function(e){
+    e.preventDefault();
+    var hex = await sha256Hex(gatePass.value);
+    if(hex === GATE_HASH){
+      localStorage.setItem("mz_admin_unlocked", "1");
+      gateError.classList.remove("show");
+      unlock();
+    } else {
+      gateError.classList.add("show");
+      gatePass.value = "";
+      gatePass.focus();
+    }
+  });
+
   var OWNER = "sbnn3";
   var REPO = "mzmoldova";
   var BRANCH = "main";
